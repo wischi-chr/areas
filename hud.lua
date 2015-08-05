@@ -12,9 +12,9 @@ minetest.register_globalstep(function(dtime)
 					:format(area.name, id, area.owner,
 					area.open and ":open" or ""))
 		end
-		local areaString = "Areas:"
+		local areaString = ""
 		if #areaStrings > 0 then
-			areaString = areaString.."\n"..
+			areaString = "Areas:\n"..
 				table.concat(areaStrings, "\n")
 		end
 		local hud = areas.hud[name]
