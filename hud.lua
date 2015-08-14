@@ -7,10 +7,13 @@ minetest.register_globalstep(function(dtime)
 		local name = player:get_player_name()
 		local pos = vector.round(player:getpos())
 		local areaStrings = {}
+		local areaAdmin = minetest.check_player_privs(name, {areas=true})
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
-			table.insert(areaStrings, ("%s (%s%s)")
-					:format(area.name, area.owner,
-					area.open and ":open" or ""))
+			local areaDetails = area.name
+			if areaAdmin then
+				areaDetails = areaDetails.." ("..area.owner..") - ["..id.."]"..(area.open and ":open" or "")
+			end
+			table.insert(areaStrings, areaDetails)
 		end
 		local areaString = ""
 		if #areaStrings > 0 then
